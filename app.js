@@ -6,14 +6,14 @@ const logger = require('morgan');
 const flash = require('connect-flash');
 const session = require('express-session');
 const hbs = require('hbs');
-require('./helpers/hbs')(hbs);
+// require('./helpers/hbs')(hbs);
 require('dotenv').config();
 
 const indexRouter = require('./routes');
 const app = express();
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
 app.use(express.json());

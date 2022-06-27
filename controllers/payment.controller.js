@@ -18,6 +18,7 @@ exports.index = (req, res) => {
 
 exports.payment = async(req, res) => {
     const token = await createToken(req.body);
+    const amount = req.body.amount;
     if (token.error) {
         req.flash('danger', token.error);
         return res.redirect('/');
@@ -27,13 +28,17 @@ exports.payment = async(req, res) => {
         return res.redirect('/');
     }
 
-    const charge = await createCharge(token.id, 2000);
+    const charge = await createCharge(token.id, amount);
     if (charge && charge.status == 'succeeded') {
         req.flash('success', 'Payment completed.');
     } else {
         req.flash('danger', 'Payment failed.');
     }
-    return res.redirect('/');
+    // return res.send('/');
+    res.json({
+        status: charge.status,
+        id: charge.id
+    });
 };
 
 const createToken = async(cardData) => {
@@ -65,9 +70,9 @@ const createCharge = async(tokenId, amount) => {
     try {
         charge = await stripe.charges.create({
             amount: amount,
-            currency: 'usd',
+            currency: 'MXN',
             source: tokenId,
-            description: 'My first payment'
+            description: tokenId
         });
     } catch (error) {
         charge.error = error.message;

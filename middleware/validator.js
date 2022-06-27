@@ -23,7 +23,8 @@ const getSchema = (type) => {
                     cardNumber: Joi.string().required(),
                     month: Joi.string().required(),
                     year: Joi.string().required(),
-                    cvv: Joi.string().required()
+                    cvv: Joi.string().required(),
+                    amount: Joi.string().required()
                 });
             }
         default:

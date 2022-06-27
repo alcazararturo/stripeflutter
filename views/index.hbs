@@ -16,6 +16,10 @@
                             {{/each}}
                             <form role="form" method="POST" id="paymentForm" action="/payment"> 
                                 <div class="form-group">
+                                    <label for="amount">Amount (on the charge)</label>
+                                    <input type="text" class="form-control" name="amount" placeholder="Amount">
+                                </div>
+                                <div class="form-group">
                                     <label for="username">Full name (on the card)</label>
                                     <input type="text" class="form-control" name="fullName" placeholder="Full Name">
                                 </div>
@@ -79,6 +83,7 @@
                 return false
             },
             rules: {
+                amount: "required", 
                 fullName: {
                     required: true,
                     maxlength: 50
